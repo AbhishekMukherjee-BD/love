@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Happy Girlfriend Day Indu ❤️ | The Grand Finale</title>
+
+  <!-- Google Fonts Import -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,600&family=Dancing+Script:wght@700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --color-rose-deep: oklch(58% 0.22 350);
+      --color-velvet-berry: oklch(35% 0.16 350);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-script: 'Dancing Script', cursive;
+      --font-sans: 'Outfit', -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      background-color: #050103;
+      color: #ffffff;
+      font-family: var(--font-sans);
+    }
+
+    /* Fixed Top Music Toggle */
+    .music-bar {
+      position: fixed;
+      top: max(16px, env(safe-area-inset-top));
+      right: 16px;
+      z-index: 50;
+      background: rgba(255, 240, 243, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 77, 109, 0.35);
+      border-radius: 30px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--color-velvet-berry);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255, 77, 109, 0.3);
+    }
+
+    /* Long Scroll Height Track (600vh for ultra-smooth mobile scroll) */
+    .scroll-track {
+      height: 600vh;
+      position: relative;
+    }
+
+    /* Fixed 9:16 Mobile Viewport Container */
+    .sticky-viewport {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      padding: 12px;
+    }
+
+    /* 9:16 Aspect Ratio Frame Box */
+    .frame-container-916 {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      aspect-ratio: 9 / 16;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 40px rgba(255, 77, 109, 0.4);
+      border: 1px solid rgba(255, 77, 109, 0.3);
+      background: #000000;
+    }
+
+    /* 15% Blurred Background Canvas */
+    .blurred-bg-canvas {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: blur(15px);
+      -webkit-filter: blur(15px);
+      transform: scale(1.08); /* Prevents blur edge clipping */
+    }
+
+    /* Dark Subtle Glass Tint Overlay */
+    .glass-overlay-tint {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, rgba(15, 2, 8, 0.45) 0%, rgba(0, 0, 0, 0.78) 100%);
+      z-index: 2;
+    }
+
+    /* Typography Container floating over Blurred Video */
+    .letter-typography-box {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Header Badge */
+    .finale-header-tag {
+      position: absolute;
+      top: 24px;
+      background: rgba(255, 77, 109, 0.25);
+      border: 1px solid #ff4d6d;
+      color: #ffe3e8;
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 6px 16px;
+      border-radius: 30px;
+      letter-spacing: 0.1em;
+      box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+      z-index: 15;
+    }
+
+    /* 2-Line Text Segment Container */
+    .text-segment {
+      position: absolute;
+      width: 88%;
+      opacity: 0;
+      transform: translateY(25px) scale(0.92);
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      pointer-events: none;
+    }
+
+    .text-segment.active {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    .line-1 {
+      font-family: var(--font-script);
+      font-size: clamp(1.6rem, 5.5vw, 2.2rem);
+      color: #ffffff;
+      text-shadow: 0 0 20px rgba(255, 77, 109, 0.9), 0 2px 8px rgba(0, 0, 0, 0.9);
+      line-height: 1.35;
+    }
+
+    .line-2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.2rem, 4.5vw, 1.6rem);
+      font-style: italic;
+      color: #ffccd5;
+      margin-top: 12px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+      line-height: 1.35;
+    }
+
+    /* Camera Reveal Final Button */
+    .camera-reveal-btn-container {
+      position: absolute;
+      bottom: 24px;
+      width: 88%;
+      z-index: 20;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+      pointer-events: none;
+    }
+
+    .camera-reveal-btn-container.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .reveal-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px 24px;
+      background: linear-gradient(135deg, #ff4d6d 0%, #c9184a 100%);
+      color: #ffffff;
+      font-family: var(--font-sans);
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 12px 35px rgba(255, 77, 109, 0.8);
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .reveal-btn:active {
+      transform: scale(0.96);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Audio Element -->
+  <audio id="bg-music" loop autoplay src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3"></audio>
+
+  <!-- Music Toggle -->
+  <button class="music-bar" id="music-btn">
+    <span id="music-icon">🔊</span> <span id="music-text">Playing</span>
+  </button>
+
+  <!-- Scroll Height Track for Scroll-Driven Video Scrubbing -->
+  <div class="scroll-track"></div>
+
+  <!-- FIXED STICKY VIEWPORT -->
+  <div class="sticky-viewport">
+    
+    <!-- 9:16 ASPECT RATIO CONTAINER -->
+    <div class="frame-container-916">
+      
+      <!-- 15% BLURRED BACKGROUND VIDEO CANVAS -->
+      <canvas id="video-canvas" class="blurred-bg-canvas"></canvas>
+      <div class="glass-overlay-tint"></div>
+
+      <!-- TYPOGRAPHY OVERLAY -->
+      <div class="letter-typography-box">
+        <div class="finale-header-tag">A LETTER FOR INDU ❤️</div>
+
+        <!-- SEGMENT 1 -->
+        <div class="text-segment active" id="seg-1">
+          <div class="line-1">"Hi Indu , ik am late ,toooo late"</div>
+          <div class="line-2">i thought hoejabe but am sorry ok &lt;3</div>
+        </div>
+
+        <!-- SEGMENT 2 -->
+        <div class="text-segment" id="seg-2">
+          <div class="line-1">"now nowwww happy GIRLFRIEND DAY INDU"</div>
+          <div class="line-2">seeing into ur eyes , falling for them ALWAYS WORKED UK 💕</div>
+        </div>
+
+        <!-- SEGMENT 3 -->
+        <div class="text-segment" id="seg-3">
+          <div class="line-1">"no matter wt just tor theke abhii shona tai enough re"</div>
+          <div class="line-2">idk about others idk anything but i still feel having u as a gf was my best days</div>
+        </div>
+
+        <!-- SEGMENT 4 -->
+        <div class="text-segment" id="seg-4">
+          <div class="line-1">"when u loved me fullest"</div>
+          <div class="line-2">i really GOT LUCKY TO KNOW WHATS TRUE LOVE IS VIA U ❤️</div>
+        </div>
+
+        <!-- SEGMENT 5 -->
+        <div class="text-segment" id="seg-5">
+          <div class="line-1">"U taught me how to love someone"</div>
+          <div class="line-2">ill always be the luckiest to HAVE U EVEN FOR ONE SEC IN MY LIFE❤️ 143 INDU</div>
+        </div>
+
+        <!-- SEGMENT 6 -->
+        <div class="text-segment" id="seg-6">
+          <div class="line-1">"ha ami samna samni bolte partamna eigulo tai bolini sorry"</div>
+          <div class="line-2">but i am luckiest that i kissed u i hugged u</div>
+        </div>
+
+        <!-- SEGMENT 7 -->
+        <div class="text-segment" id="seg-7">
+          <div class="line-1">"i CHERISHED U IN MY ARMS"</div>
+          <div class="line-2">I AM LUCKY THAT I HAD U AS GIRLFRIEND 💕</div>
+        </div>
+
+        <!-- SEGMENT 8 -->
+        <div class="text-segment" id="seg-8">
+          <div class="line-1">"HAPPY GIRLFRIEND DAY INDU ......."</div>
+          <div class="line-2">alwaysyoursabhi143 ❤️</div>
+        </div>
+
+        <!-- CAMERA REVEAL BUTTON -->
+        <div class="camera-reveal-btn-container" id="camera-btn-box">
+          <a href="camera.html" class="reveal-btn">
+            <span>Tap to see who stole my heart 💖</span>
+            <span>➔</span>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    // Audio Control
+    const bgMusic = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-btn');
+    const musicIcon = document.getElementById('music-icon');
+    const musicText = document.getElementById('music-text');
+    let isPlaying = true;
+
+    bgMusic.play().catch(() => {
+      isPlaying = false;
+      musicIcon.textContent = '🎵';
+      musicText.textContent = 'Play Song';
+    });
+
+    musicBtn.addEventListener('click', () => {
+      if (isPlaying) {
+        bgMusic.pause();
+        musicIcon.textContent = '🎵';
+        musicText.textContent = 'Play Song';
+        isPlaying = false;
+      } else {
+        bgMusic.play();
+        musicIcon.textContent = '🔊';
+        musicText.textContent = 'Playing';
+        isPlaying = true;
+      }
+    });
+
+    // Preload 101 Video Frames from ./ezgif-8d4359ab4e6d99e9-jpg/
+    const TOTAL_FRAMES = 101;
+    const frames = [];
+    let loadedCount = 0;
+
+    const canvas = document.getElementById('video-canvas');
+    const ctx = canvas.getContext('2d');
+
+    for (let i = 1; i <= TOTAL_FRAMES; i++) {
+      const img = new Image();
+      const frameNum = String(i).padStart(3, '0');
+      img.src = `./ezgif-8d4359ab4e6d99e9-jpg/ezgif-frame-${frameNum}.jpg`;
+      img.onload = () => {
+        loadedCount++;
+        if (i === 1) renderFrame(1);
+      };
+      frames.push(img);
+    }
+
+    function renderFrame(index) {
+      const img = frames[index - 1];
+      if (img && img.complete) {
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img, 0, 0);
+      }
+    }
+
+    // Scroll-Driven Frame Scrubbing & 2-Line Typography Sequencer
+    const segments = [
+      document.getElementById('seg-1'),
+      document.getElementById('seg-2'),
+      document.getElementById('seg-3'),
+      document.getElementById('seg-4'),
+      document.getElementById('seg-5'),
+      document.getElementById('seg-6'),
+      document.getElementById('seg-7'),
+      document.getElementById('seg-8')
+    ];
+    const cameraBtnBox = document.getElementById('camera-btn-box');
+
+    function updateScrollState() {
+      const scrollTop = window.scrollY || window.pageYOffset;
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const scrollRatio = Math.min(1, Math.max(0, scrollTop / maxScroll));
+
+      // Frame scrubbing (1 to 101)
+      const frameIndex = Math.min(TOTAL_FRAMES, Math.max(1, Math.floor(scrollRatio * (TOTAL_FRAMES - 1)) + 1));
+      renderFrame(frameIndex);
+
+      // 2-Line Typography Segment Switching
+      const totalSegs = segments.length;
+      let targetSegIndex = Math.floor(scrollRatio * totalSegs);
+      if (targetSegIndex >= totalSegs) targetSegIndex = totalSegs - 1;
+
+      segments.forEach((seg, idx) => {
+        if (idx === targetSegIndex && scrollRatio < 0.92) {
+          seg.classList.add('active');
+        } else {
+          seg.classList.remove('active');
+        }
+      });
+
+      // End of Scroll -> Reveal Camera Button
+      if (scrollRatio >= 0.88) {
+        cameraBtnBox.classList.add('visible');
+      } else {
+        cameraBtnBox.classList.remove('visible');
+      }
+    }
+
+    window.addEventListener('scroll', updateScrollState, { passive: true });
+    window.addEventListener('touchmove', updateScrollState, { passive: true });
+    window.addEventListener('resize', updateScrollState, { passive: true });
+
+    // Initial Trigger
+    updateScrollState();
+  </script>
+</body>
+</html>

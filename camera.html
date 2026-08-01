@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>The Prettiest Girl in the World 💕 | Happy Girlfriend Day</title>
+
+  <!-- Google Fonts Import -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400;1,600&family=Dancing+Script:wght@700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Canvas Confetti Library -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --color-rose-deep: oklch(58% 0.22 350);
+      --color-velvet-berry: oklch(35% 0.16 350);
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-script: 'Dancing Script', cursive;
+      --font-sans: 'Outfit', -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      background-color: #0d0206;
+      color: #ffffff;
+      font-family: var(--font-sans);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .camera-container {
+      position: relative;
+      width: 90%;
+      max-width: 400px;
+      background: rgba(255, 240, 243, 0.95);
+      backdrop-filter: blur(16px);
+      border-radius: 28px;
+      padding: 24px 20px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 77, 109, 0.4);
+      border: 2px solid #ff4d6d;
+      text-align: center;
+    }
+
+    .polaroid-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #000000;
+      border: 4px solid #ffffff;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transform: scaleX(-1); /* Selfie Mirror Effect */
+    }
+
+    .frame-heart-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--color-rose-deep);
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(230, 57, 86, 0.5);
+    }
+
+    .caption-box {
+      margin-top: 18px;
+    }
+
+    .caption-box h1 {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      color: var(--color-velvet-berry);
+      line-height: 1.2;
+    }
+
+    .caption-box p {
+      font-family: var(--font-script);
+      font-size: 1.4rem;
+      color: var(--color-rose-deep);
+      margin-top: 6px;
+    }
+
+    .replay-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 12px 24px;
+      background: linear-gradient(135deg, #ff4d6d 0%, #c9184a 100%);
+      color: #ffffff;
+      border-radius: 30px;
+      border: none;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      box-shadow: 0 8px 25px rgba(255, 77, 109, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="camera-container">
+    <div class="polaroid-frame">
+      <video id="webcam" autoplay playsinline muted></video>
+      <div class="frame-heart-badge">MOST BEAUTIFUL 💕</div>
+    </div>
+
+    <div class="caption-box">
+      <h1>The Person Who Stole My Heart 👑</h1>
+      <p>"The prettiest baddie in the world! Happy Girlfriend Day Indu ❤️"</p>
+      
+      <a href="index.html" class="replay-btn">
+        <span>Restart Experience 🔄</span>
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Launch WebRTC Front Camera Stream
+    const video = document.getElementById('webcam');
+
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'user' }
+      }).then(stream => {
+        video.srcObject = stream;
+        triggerHeartConfetti();
+      }).catch(err => {
+        console.warn('Camera access denied or unsupported:', err);
+      });
+    }
+
+    // Heart Fireworks Confetti Explosion
+    function triggerHeartConfetti() {
+      const end = Date.now() + 3500;
+      const colors = ['#ff4d6d', '#ff8fa3', '#ffffff', '#c9184a'];
+
+      (function frame() {
+        confetti({
+          particleCount: 4,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: colors
+        });
+        confetti({
+          particleCount: 4,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: colors
+        });
+
+        if (Date.now() < end) {
+          requestAnimationFrame(frame);
+        }
+      }());
+    }
+  </script>
+</body>
+</html>
