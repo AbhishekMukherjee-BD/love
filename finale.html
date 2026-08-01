@@ -25,6 +25,7 @@
       padding: 0;
       user-select: none;
       -webkit-user-select: none;
+      touch-action: manipulation;
     }
 
     body, html {
@@ -33,6 +34,7 @@
       background-color: #050103;
       color: #ffffff;
       font-family: var(--font-sans);
+      overflow-x: hidden;
     }
 
     /* Fixed Top Music Toggle */
@@ -57,13 +59,13 @@
       box-shadow: 0 8px 25px rgba(255, 77, 109, 0.3);
     }
 
-    /* Long Scroll Height Track (600vh for ultra-smooth mobile scroll) */
+    /* Long Scroll Height Track */
     .scroll-track {
       height: 600vh;
       position: relative;
     }
 
-    /* Fixed 9:16 Mobile Viewport Container */
+    /* FIXED VIEWPORT CONTAINER - FIT TO SKIN */
     .sticky-viewport {
       position: fixed;
       top: 0;
@@ -75,19 +77,20 @@
       justify-content: center;
       align-items: center;
       z-index: 10;
-      padding: 12px;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
     }
 
-    /* 9:16 Aspect Ratio Frame Box */
+    /* 9:16 ASPECT RATIO CONTAINER - FIT TO SKIN */
     .frame-container-916 {
       position: relative;
-      width: 100%;
-      max-width: 420px;
-      aspect-ratio: 9 / 16;
-      border-radius: 24px;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
       overflow: hidden;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 40px rgba(255, 77, 109, 0.4);
-      border: 1px solid rgba(255, 77, 109, 0.3);
+      box-shadow: none;
+      border: none;
       background: #000000;
     }
 
@@ -99,7 +102,7 @@
       display: block;
       filter: blur(15px);
       -webkit-filter: blur(15px);
-      transform: scale(1.08); /* Prevents blur edge clipping */
+      transform: scale(1.08);
     }
 
     /* Dark Subtle Glass Tint Overlay */
@@ -132,7 +135,7 @@
     /* Header Badge */
     .finale-header-tag {
       position: absolute;
-      top: 24px;
+      top: max(24px, env(safe-area-inset-top));
       background: rgba(255, 77, 109, 0.25);
       border: 1px solid #ff4d6d;
       color: #ffe3e8;
@@ -150,6 +153,7 @@
     .text-segment {
       position: absolute;
       width: 88%;
+      max-width: 400px;
       opacity: 0;
       transform: translateY(25px) scale(0.92);
       transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -180,11 +184,12 @@
       line-height: 1.35;
     }
 
-    /* Camera Reveal Final Button */
+    /* Camera Reveal Final Button - FIT TO SKIN */
     .camera-reveal-btn-container {
       position: absolute;
-      bottom: 24px;
+      bottom: max(24px, env(safe-area-inset-bottom));
       width: 88%;
+      max-width: 400px;
       z-index: 20;
       opacity: 0;
       transform: translateY(20px);
@@ -236,10 +241,10 @@
   <!-- Scroll Height Track for Scroll-Driven Video Scrubbing -->
   <div class="scroll-track"></div>
 
-  <!-- FIXED STICKY VIEWPORT -->
+  <!-- FIXED STICKY VIEWPORT - FIT TO SKIN -->
   <div class="sticky-viewport">
     
-    <!-- 9:16 ASPECT RATIO CONTAINER -->
+    <!-- 9:16 ASPECT RATIO CONTAINER - FIT TO SKIN -->
     <div class="frame-container-916">
       
       <!-- 15% BLURRED BACKGROUND VIDEO CANVAS -->
@@ -415,7 +420,6 @@
     window.addEventListener('touchmove', updateScrollState, { passive: true });
     window.addEventListener('resize', updateScrollState, { passive: true });
 
-    // Initial Trigger
     updateScrollState();
   </script>
 </body>

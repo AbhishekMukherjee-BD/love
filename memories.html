@@ -36,6 +36,7 @@
       background-color: #0d0206;
       color: #ffffff;
       font-family: var(--font-sans);
+      overflow-x: hidden;
     }
 
     /* Fixed Top Music Bar */
@@ -71,7 +72,7 @@
       position: relative;
     }
 
-    /* Fixed Sticky Viewport Container */
+    /* FIXED STICKY VIEWPORT CONTAINER - FIT TO SKIN */
     .sticky-viewport {
       position: fixed;
       top: 0;
@@ -83,24 +84,27 @@
       justify-content: center;
       align-items: center;
       z-index: 10;
-      padding: 12px;
+      padding: 0;
+      margin: 0;
+      overflow: hidden;
     }
 
-    /* PIN 1 MAIN COLLAGE FRAME (FIXED & CRISP) */
+    /* PIN 1 MAIN COLLAGE FRAME - FIT TO SKIN */
     .collage-hero-container {
       position: relative;
-      width: 100%;
-      max-width: 440px;
-      aspect-ratio: 736 / 1308;
-      border-radius: 20px;
+      width: 100vw;
+      height: 100vh;
+      height: 100dvh;
       overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 77, 109, 0.3);
+      box-shadow: none;
+      border-radius: 0;
     }
 
     .collage-bg-img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       display: block;
     }
 
@@ -186,9 +190,8 @@
     /* Scroll Step Counter Floating Badge */
     .scroll-step-badge {
       position: absolute;
-      top: 16px;
-      left: 50%;
-      transform: translateX(-50%);
+      top: max(16px, env(safe-area-inset-top));
+      left: 16px;
       background: rgba(40, 5, 16, 0.88);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -246,13 +249,14 @@
       opacity: 1;
     }
 
-    /* Bottom Overlay Button */
+    /* Bottom Overlay Button - FIT TO SKIN */
     .bottom-cta-trigger {
       position: absolute;
-      bottom: 20px;
+      bottom: max(20px, env(safe-area-inset-bottom));
       left: 50%;
       transform: translateX(-50%);
       width: 90%;
+      max-width: 400px;
       z-index: 25;
     }
 
@@ -279,9 +283,7 @@
       transform: scale(0.96);
     }
 
-    /* ============================================================
-       PIN 7 ENVELOPE MODAL (pin7_bg.jpg)
-       ============================================================ */
+    /* PIN 7 ENVELOPE MODAL (pin7_bg.jpg) */
     .pin7-letter-modal {
       position: fixed;
       top: 0;
@@ -303,7 +305,6 @@
       pointer-events: auto;
     }
 
-    /* PIN 7 DIRECT IMAGE BACKGROUND */
     .pin7-bg-layer {
       position: absolute;
       top: 0;
@@ -316,7 +317,6 @@
       z-index: 1;
     }
 
-    /* Dark Romantic Filter Overlay */
     .pin7-dark-overlay {
       position: absolute;
       top: 0;
@@ -329,7 +329,6 @@
       z-index: 2;
     }
 
-    /* 3D Envelope Container */
     .envelope-3d-wrapper {
       position: relative;
       z-index: 10;
@@ -376,7 +375,7 @@
 
     .close-modal-btn {
       position: absolute;
-      top: 16px;
+      top: max(16px, env(safe-area-inset-top));
       right: 16px;
       z-index: 20;
       background: rgba(255, 77, 109, 0.8);
@@ -408,7 +407,7 @@
   <!-- Scroll Height Track -->
   <div class="scroll-track"></div>
 
-  <!-- FIXED STICKY VIEWPORT -->
+  <!-- FIXED STICKY VIEWPORT - FIT TO SKIN -->
   <div class="sticky-viewport">
     
     <div class="collage-hero-container">
@@ -493,9 +492,7 @@
 
   </div>
 
-  <!-- ============================================================
-       PIN 7 ENVELOPE MODAL (IMMEDIATE REDIRECT ON WAX SEAL CLICK)
-       ============================================================ -->
+  <!-- PIN 7 ENVELOPE MODAL (IMMEDIATE REDIRECT ON WAX SEAL CLICK) -->
   <div class="pin7-letter-modal" id="pin7-modal">
     <div class="pin7-bg-layer"></div>
     <div class="pin7-dark-overlay"></div>
@@ -564,9 +561,9 @@
 
     let currentStep = 1;
 
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    function updateScrollState() {
+      const scrollTop = window.scrollY || window.pageYOffset;
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       const scrollRatio = Math.min(1, Math.max(0, scrollTop / maxScroll));
 
       // Cursive Handwriting Scroll Drawing Effect
@@ -599,14 +596,17 @@
           stepBadge.textContent = "Memory Pair 3 of 3 👑";
         }
       }
-    });
+    }
+
+    window.addEventListener('scroll', updateScrollState, { passive: true });
+    window.addEventListener('touchmove', updateScrollState, { passive: true });
 
     function activatePair(activeItems, inactiveItems) {
       inactiveItems.forEach(item => item.classList.remove('active'));
       activeItems.forEach(item => item.classList.add('active'));
     }
 
-    // Modal Trigger Handler (Continue Our Journey 🌹)
+    // Modal Trigger Handler
     const openLetterBtn = document.getElementById('open-letter-trigger-btn');
     const pin7Modal = document.getElementById('pin7-modal');
     const closeModalBtn = document.getElementById('close-modal-btn');
@@ -620,7 +620,6 @@
       pin7Modal.classList.remove('active');
     });
 
-    // Immediate Redirect on Wax Seal Envelope Click!
     modalWaxSealBtn.addEventListener('click', () => {
       modalWaxSealBtn.style.transform = 'scale(0.5)';
       setTimeout(() => {
