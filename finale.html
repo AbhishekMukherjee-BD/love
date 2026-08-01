@@ -25,7 +25,6 @@
       padding: 0;
       user-select: none;
       -webkit-user-select: none;
-      touch-action: manipulation;
     }
 
     body, html {
@@ -34,7 +33,6 @@
       background-color: #050103;
       color: #ffffff;
       font-family: var(--font-sans);
-      overflow-x: hidden;
     }
 
     /* Fixed Top Music Toggle */
@@ -57,6 +55,7 @@
       font-weight: 600;
       cursor: pointer;
       box-shadow: 0 8px 25px rgba(255, 77, 109, 0.3);
+      pointer-events: auto;
     }
 
     /* Long Scroll Height Track */
@@ -65,7 +64,7 @@
       position: relative;
     }
 
-    /* FIXED VIEWPORT CONTAINER - FIT TO SKIN */
+    /* FIXED VIEWPORT CONTAINER - ALLOW TOUCH SCROLL PASS THROUGH */
     .sticky-viewport {
       position: fixed;
       top: 0;
@@ -80,6 +79,7 @@
       padding: 0;
       margin: 0;
       overflow: hidden;
+      pointer-events: none; /* Allows user to scroll through fixed layer */
     }
 
     /* 9:16 ASPECT RATIO CONTAINER - FIT TO SKIN */
@@ -92,6 +92,7 @@
       box-shadow: none;
       border: none;
       background: #000000;
+      pointer-events: none;
     }
 
     /* 15% Blurred Background Canvas */
@@ -130,6 +131,7 @@
       justify-content: center;
       align-items: center;
       text-align: center;
+      pointer-events: none;
     }
 
     /* Header Badge */
@@ -163,7 +165,6 @@
     .text-segment.active {
       opacity: 1;
       transform: translateY(0) scale(1);
-      pointer-events: auto;
     }
 
     .line-1 {
@@ -221,6 +222,7 @@
       box-shadow: 0 12px 35px rgba(255, 77, 109, 0.8);
       text-decoration: none;
       transition: transform 0.3s ease;
+      pointer-events: auto;
     }
 
     .reveal-btn:active {
@@ -241,10 +243,10 @@
   <!-- Scroll Height Track for Scroll-Driven Video Scrubbing -->
   <div class="scroll-track"></div>
 
-  <!-- FIXED STICKY VIEWPORT - FIT TO SKIN -->
+  <!-- FIXED STICKY VIEWPORT CONTAINER -->
   <div class="sticky-viewport">
     
-    <!-- 9:16 ASPECT RATIO CONTAINER - FIT TO SKIN -->
+    <!-- 9:16 ASPECT RATIO CONTAINER -->
     <div class="frame-container-916">
       
       <!-- 15% BLURRED BACKGROUND VIDEO CANVAS -->
