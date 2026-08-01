@@ -96,8 +96,6 @@
       height: 100vh;
       height: 100dvh;
       overflow: hidden;
-      box-shadow: none;
-      border-radius: 0;
     }
 
     .collage-bg-img {
@@ -137,18 +135,12 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(255, 240, 243, 0.95);
-      border: 2px dashed #ff4d6d;
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 4px;
-      color: var(--color-velvet-berry);
-      box-shadow: inset 0 0 15px rgba(255, 77, 109, 0.2);
+      background: #000000;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
       opacity: 0;
-      transform: scale(0.85) rotate(-2deg);
+      transform: scale(0.88) rotate(-2deg);
       transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       pointer-events: none;
     }
@@ -159,32 +151,12 @@
       pointer-events: auto;
     }
 
-    .slot-badge {
-      background: var(--color-rose-deep);
-      color: #ffffff;
-      font-family: var(--font-sans);
-      font-size: clamp(0.72rem, 2vw, 0.85rem);
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 20px;
-      letter-spacing: 0.04em;
-      box-shadow: 0 4px 12px rgba(230, 57, 86, 0.4);
-      text-align: center;
-    }
-
-    .slot-icon {
-      font-size: clamp(1.4rem, 3.5vw, 2rem);
-      animation: floatHeart 2s infinite alternate ease-in-out;
-    }
-
-    .slot-text {
-      font-family: var(--font-typewriter);
-      font-size: clamp(0.55rem, 1.6vw, 0.68rem);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--color-velvet-berry);
-      font-weight: 700;
-      text-align: center;
+    .real-slot-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
     }
 
     /* Scroll Step Counter Floating Badge */
@@ -441,42 +413,30 @@
       <!-- TOP RIGHT BLACK SQUARE BOX SLOTS -->
       <div class="black-box-slot-container slot-top-right">
         <div class="photo-item active" id="slot-1">
-          <div class="slot-icon">🌸</div>
-          <div class="slot-badge">[ PHOTO SLOT #1 ]</div>
-          <div class="slot-text">Pair 1 Top-Right</div>
+          <img src="./photo1.jpg" alt="Photo 1" class="real-slot-img">
         </div>
 
         <div class="photo-item" id="slot-3">
-          <div class="slot-icon">✨</div>
-          <div class="slot-badge">[ PHOTO SLOT #3 ]</div>
-          <div class="slot-text">Pair 2 Top-Right</div>
+          <img src="./photo3.jpg" alt="Photo 3" class="real-slot-img">
         </div>
 
         <div class="photo-item" id="slot-5">
-          <div class="slot-icon">💌</div>
-          <div class="slot-badge">[ PHOTO SLOT #5 ]</div>
-          <div class="slot-text">Pair 3 Top-Right</div>
+          <img src="./photo5.jpg" alt="Photo 5" class="real-slot-img">
         </div>
       </div>
 
       <!-- BOTTOM LEFT BLACK SQUARE BOX SLOTS -->
       <div class="black-box-slot-container slot-bottom-left">
         <div class="photo-item active" id="slot-2">
-          <div class="slot-icon">📸</div>
-          <div class="slot-badge">[ PHOTO SLOT #2 ]</div>
-          <div class="slot-text">Pair 1 Bottom-Left</div>
+          <img src="./photo2.jpg" alt="Photo 2" class="real-slot-img">
         </div>
 
         <div class="photo-item" id="slot-4">
-          <div class="slot-icon">🌹</div>
-          <div class="slot-badge">[ PHOTO SLOT #4 ]</div>
-          <div class="slot-text">Pair 2 Bottom-Left</div>
+          <img src="./photo4.jpg" alt="Photo 4" class="real-slot-img">
         </div>
 
         <div class="photo-item" id="slot-6">
-          <div class="slot-icon">👑</div>
-          <div class="slot-badge">[ PHOTO SLOT #6 ]</div>
-          <div class="slot-text">Pair 3 Bottom-Left</div>
+          <img src="./photo6.jpg" alt="Photo 6" class="real-slot-img">
         </div>
       </div>
 
