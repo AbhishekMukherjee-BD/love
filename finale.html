@@ -30,6 +30,7 @@
     body, html {
       width: 100%;
       height: 100%;
+      height: -webkit-fill-available;
       background-color: #050103;
       color: #ffffff;
       font-family: var(--font-sans);
@@ -59,14 +60,15 @@
       pointer-events: auto;
     }
 
-    /* FIXED VIEWPORT CONTAINER - FIT TO SKIN */
+    /* FIXED STICKY VIEWPORT CONTAINER - NO EDGE CUT LINES */
     .sticky-viewport {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      height: 100dvh;
+      top: -2px;
+      bottom: -2px;
+      left: -2px;
+      right: -2px;
+      width: calc(100vw + 4px);
+      height: calc(100dvh + 4px);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -74,29 +76,33 @@
       padding: 0;
       margin: 0;
       overflow: hidden;
+      background: #050103;
     }
 
     /* 9:16 ASPECT RATIO CONTAINER - FIT TO SKIN */
     .frame-container-916 {
       position: relative;
-      width: 100vw;
-      height: 100vh;
-      height: 100dvh;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
       box-shadow: none;
       border: none;
-      background: #000000;
+      background: #050103;
     }
 
-    /* 15% Blurred Background Canvas */
+    /* 15% Blurred Background Canvas - OVERSIZED TO PREVENT ANDROID EDGE CUTS */
     .blurred-bg-canvas {
-      width: 100%;
-      height: 100%;
+      position: absolute;
+      top: -5%;
+      left: -5%;
+      width: 110%;
+      height: 110%;
       object-fit: cover;
       display: block;
       filter: blur(15px);
       -webkit-filter: blur(15px);
-      transform: scale(1.08);
+      transform: scale(1.15);
+      -webkit-transform: scale(1.15);
     }
 
     /* Dark Subtle Glass Tint Overlay */
@@ -181,9 +187,9 @@
     /* Camera Reveal Final Button */
     .camera-reveal-btn-container {
       position: absolute;
-      bottom: max(24px, env(safe-area-inset-bottom));
-      width: 88%;
-      max-width: 400px;
+      bottom: max(28px, env(safe-area-inset-bottom));
+      width: 90%;
+      max-width: 420px;
       z-index: 20;
       opacity: 0;
       transform: translateY(20px);
@@ -203,11 +209,11 @@
       align-items: center;
       gap: 10px;
       width: 100%;
-      padding: 16px 24px;
+      padding: 16px 20px;
       background: linear-gradient(135deg, #ff4d6d 0%, #c9184a 100%);
       color: #ffffff;
       font-family: var(--font-sans);
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: 700;
       border-radius: 50px;
       border: none;
@@ -295,10 +301,10 @@
           <div class="line-2">alwaysyoursabhi143 ❤️</div>
         </div>
 
-        <!-- CAMERA REVEAL BUTTON -->
+        <!-- CAMERA REVEAL BUTTON - UPDATED BUTTON TEXT -->
         <div class="camera-reveal-btn-container" id="camera-btn-box">
           <a href="camera.html" class="reveal-btn">
-            <span>Tap to see who stole my heart 💖</span>
+            <span>Wanna see the reason of my SMILE &lt;3 ? 💖</span>
             <span>➔</span>
           </a>
         </div>
@@ -310,14 +316,13 @@
   </div>
 
   <script>
-    // Audio & Timeline Synchronization Engine
+    // Audio Control
     const bgMusic = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-btn');
     const musicIcon = document.getElementById('music-icon');
     const musicText = document.getElementById('music-text');
     let isPlaying = true;
 
-    // Start Audio
     function startMusic() {
       bgMusic.play().then(() => {
         isPlaying = true;
@@ -350,7 +355,7 @@
       }
     });
 
-    // Preload 101 Video Frames from ./ezgif-8d4359ab4e6d99e9-jpg/
+    // 101 Video Frames Setup for Continuous Smooth 24fps Loop Animation
     const TOTAL_FRAMES = 101;
     const frames = [];
     const canvas = document.getElementById('video-canvas');
@@ -375,7 +380,26 @@
       }
     }
 
-    // Automated Song-Synced Letter Progress Engine
+    // Continuous 24fps Smooth Video Frame Loop Animation
+    let currentFrameIndex = 1;
+    let lastFrameTime = 0;
+    const fps = 24;
+    const interval = 1000 / fps;
+
+    function animateVideoLoop(timestamp) {
+      if (!lastFrameTime) lastFrameTime = timestamp;
+      const delta = timestamp - lastFrameTime;
+
+      if (delta >= interval) {
+        currentFrameIndex = (currentFrameIndex % TOTAL_FRAMES) + 1;
+        renderFrame(currentFrameIndex);
+        lastFrameTime = timestamp - (delta % interval);
+      }
+      requestAnimationFrame(animateVideoLoop);
+    }
+    requestAnimationFrame(animateVideoLoop);
+
+    // Automated Song-Synced Text Segment Progress Engine
     const segments = [
       document.getElementById('seg-1'),
       document.getElementById('seg-2'),
@@ -394,11 +418,7 @@
       const currentTime = bgMusic.currentTime;
       const progress = Math.min(1, Math.max(0, currentTime / duration));
 
-      // 1. Frame Scrubbing (1 to 101 synced with song progress)
-      const frameIndex = Math.min(TOTAL_FRAMES, Math.max(1, Math.floor(progress * (TOTAL_FRAMES - 1)) + 1));
-      renderFrame(frameIndex);
-
-      // 2. Segment Switcher (Synced so Segment 8 appears right before song ends!)
+      // Segment Switcher (Synced so Segment 8 appears right before song ends!)
       const segProgressRatio = Math.min(0.99, progress);
       const targetSegIndex = Math.floor(segProgressRatio * segments.length);
 
@@ -410,13 +430,13 @@
         }
       });
 
-      // 3. Show Camera Reveal Button on final segment (from 28s onwards)
+      // Show Camera Reveal Button on final segment (from 28s onwards)
       if (currentTime >= 28 || progress >= 0.8) {
         cameraBtnBox.classList.add('visible');
       }
     });
 
-    // When the first loop of the song finishes, keep final segment active while music loops
+    // When the first loop finishes, keep final segment active while music loops
     bgMusic.addEventListener('ended', () => {
       segments.forEach((seg, idx) => {
         if (idx === segments.length - 1) {
